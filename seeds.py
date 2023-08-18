@@ -1,6 +1,7 @@
 from models import Owner, Pet
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
+import random
 
 from faker import Faker
 fake = Faker()
@@ -30,7 +31,7 @@ db_owners = session.query(Owner).all()
 
 # Add owner_id to pets
 for owner in db_owners:
-    pets = [Pet(name=fake.first_name(), species="Cat", breed="Unknown", age=random.randrange(2, 20), color=fake.color_name(), weight=random.random() * 50) for _ in range(2)]
+    pets = [Pet(name=fake.first_name(), species="Cat", breed="Unknown", age=random.randrange(2, 20), color=fake.color_name(), weight=random.random() * 50, owner_id = owner.id) for _ in range(2)]
     session.bulk_save_objects(pets)
 
 session.commit()

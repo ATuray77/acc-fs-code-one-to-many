@@ -13,6 +13,7 @@ class Owner(Base):
     updated_at = Column(DateTime, onupdate=func.now())
     
     # Add pets attribute to get pets related to user
+    pets = relationship("Pet", backref="owner")
     
     
     def __repr__(self):
@@ -36,6 +37,7 @@ class Pet(Base):
     weight = Column(Float)
     
     # Add owner_id foreign key to pets
+    owner_id = Column(Integer, ForeignKey("owners.id"))
     
     
     def __repr__(self):
